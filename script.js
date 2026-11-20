@@ -201,3 +201,115 @@ function montarMenu() {
     criar(botao, "span", "tema-recorde", `${total} cartas · Recorde: ${lerRecorde(tema.id)}`);
   });
 }
+
+// ---------- Fluxo do jogo ----------
+function iniciarJogo(temaId) {
+  clearTimeout(estado.timer);
+  cancelAnimationFrame(estado.idLoop);
+
+  Object.assign(estado, {
+    temaId,
+    baralho: montarBaralho(temaId),
+    atual: null,
+    temaDasCaixas: null,
+    cartaCaindo: false,
+    aguardando: false,
+    pausado: false,
+    posY: 0,
+    pontos: 0,
+    vidas: VIDAS_INICIAIS,
+    sequencia: 0,
+    acertos: 0,
+    erros: 0,
+    revisao: [],
+    rodando: true,
+  });
+
+  $("nome-tema").textContent = buscarTema(temaId).nome + (emTreino() ? " · Treino" : "");
+  pausaEl.hidden = true;
+  botaoPausa.textContent = "⏸ Pausar";
+  botaoPausa.hidden = emTreino(); // no treino a carta não cai, então não há o que pausar
+
+  atualizarHud();
+  mostrarTela("jogo");
+  proximaCarta();
+
+  estado.ultimoTempo = performance.now();
+  estado.idLoop = requestAnimationFrame(loop);
+}
+
+function proximaCarta() {
+  // quando o baralho acaba, embaralha tudo de novo
+  if (estado.baralho.length === 0) estado.baralho = montarBaralho(estado.temaId);
+
+  estado.atual = estado.baralho.pop();
+  const { carta, tema } = estado.atual;
+
+  desenharCaixas(tema);
+  cartaEl.classList.remove("saindo");
+  cartaTema.textContent = estado.temaId === DESAFIO.id ? tema.nome : "";
+  cartaTexto.textContent = carta.texto;
+
+  estado.posY = emTreino() ? 16 : 0;
+  estado.tempoQueda = calcularTempoQueda(carta, tema);
+  posicionarCarta();
+
+  feedback.classList.remove("visivel");
+  areaJogo.classList.remove("flash-certo", "flash-errado");
+  estado.aguardando = false;
+  estado.cartaCaindo = true;
+}
+
+// textos longos e mais caixas dão mais tempo; cada nível acelera
+function calcularTempoQueda(carta, tema) {
+  let base = 4.5 + carta.texto.length * 0.06 + (tema.categorias.length - 2) * 1.2;
+  if (estado.temaId === DESAFIO.id) base += 1; // as caixas mudam, precisa de tempo para ler
+  return Math.max(base * Math.pow(ACELERACAO_POR_NIVEL, nivelAtual() - 1), TEMPO_MINIMO_QUEDA);
+}
+
+function desenharCaixas(tema) {
+  if (estado.temaDasCaixas === tema) return;
+  estado.temaDasCaixas = tema;
+
+  const n = tema.categorias.length;
+  caixasEl.className = "caixas n" + n;
+  caixasEl.innerHTML = "";
+  tema.categorias.forEach((nome, i) => {
+    const botao = criar(caixasEl, "button", "caixa");
+    botao.type = "button";
+    botao.dataset.indice = i;
+    criar(botao, "span", "caixa-tecla", TECLAS_VISIVEIS[n][i]);
+    criar(botao, "span", "caixa-nome", nome);
+  });
+}
+
+function alturaUtil() {
+  return Math.max(areaJogo.clientHeight - cartaEl.offsetHeight - 4, 0);
+}
+
+function posicionarCarta(deslocamentoX = 0) {
+  cartaEl.style.transform = `translate(calc(-50% + ${deslocamentoX}px), ${estado.posY}px)`;
+}
+
+function loop(agora) {
+  if (!estado.rodando) return;
+
+  // segundos desde o último quadro (limitado para a carta não "teletransportar" se o navegador travar)
+  const dt = Math.min((agora - estado.ultimoTempo) / 1000, 0.1);
+  estado.ultimoTempo = agora;
+
+  if (estado.cartaCaindo && !estado.pausado && !emTreino()) {
+    const limite = alturaUtil();
+    estado.posY += (limite / estado.tempoQueda) * dt;
+
+    if (estado.posY >= limite) {
+      estado.posY = limite;
+      posicionarCarta();
+      errar(null); // tempo esgotado
+    } else {
+      posicionarCarta();
+    }
+  }
+
+  estado.idLoop = requestAnimationFrame(loop);
+}
