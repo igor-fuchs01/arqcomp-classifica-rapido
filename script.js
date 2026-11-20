@@ -66,3 +66,62 @@ const estado = {
   idLoop: null,
   timer: null,
 };
+
+// ---------- Utilidades ----------
+function embaralhar(lista) {
+  const copia = [...lista];
+  for (let i = copia.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copia[i], copia[j]] = [copia[j], copia[i]];
+  }
+  return copia;
+}
+
+function criar(pai, tag, classe, texto) {
+  const el = document.createElement(tag);
+  if (classe) el.className = classe;
+  if (texto !== undefined) el.textContent = texto;
+  pai.appendChild(el);
+  return el;
+}
+
+// localStorage pode falhar (janela anônima etc.): o jogo continua, só não salva
+function ler(chave, padrao) {
+  try {
+    const valor = localStorage.getItem(chave);
+    return valor === null ? padrao : valor;
+  } catch {
+    return padrao;
+  }
+}
+
+function salvar(chave, valor) {
+  try {
+    localStorage.setItem(chave, String(valor));
+  } catch {
+    // sem localStorage
+  }
+}
+
+const lerRecorde = (temaId) => Number(ler("classifica-recorde-" + temaId, 0)) || 0;
+const salvarRecorde = (temaId, pontos) => salvar("classifica-recorde-" + temaId, pontos);
+
+function buscarTema(id) {
+  return id === DESAFIO.id ? DESAFIO : TEMAS.find((tema) => tema.id === id);
+}
+
+function montarBaralho(temaId) {
+  const temas = temaId === DESAFIO.id ? TEMAS : [buscarTema(temaId)];
+  return embaralhar(temas.flatMap((tema) => tema.cartas.map((carta) => ({ carta, tema }))));
+}
+
+const emTreino = () => estado.modo === "treino";
+const nivelAtual = () => 1 + Math.floor(estado.acertos / ACERTOS_POR_NIVEL);
+const multiplicador = () =>
+  Math.min(1 + Math.floor(estado.sequencia / ACERTOS_POR_MULTIPLICADOR), MULTIPLICADOR_MAXIMO);
+
+function mostrarTela(nome) {
+  Object.values(telas).forEach((tela) => tela.classList.remove("ativa"));
+  telas[nome].classList.add("ativa");
+  window.scrollTo(0, 0);
+}
