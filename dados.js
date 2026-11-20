@@ -34,4 +34,31 @@ const TEMAS = [
       { texto: "Troca dados com o mundo de fora", resposta: 2, explicacao: "Esse é o papel do bloco de entrada e saída." },
     ],
   },
+
+  // ------------------------------------------------------------------
+  {
+    id: "cpu",
+    capitulo: "Cap. 2.1",
+    nome: "Quem faz o quê na CPU?",
+    descricao: "ULA, UC ou registradores: quem calcula, quem manda e quem guarda?",
+    categorias: ["ULA", "UC", "Registradores"],
+    cartas: [
+      { texto: "Calcula 2 + 2 = 4", resposta: 0, explicacao: "Quem faz as contas é a ULA (Unidade Lógica e Aritmética)." },
+      { texto: "Faz soma e subtração", resposta: 0, explicacao: "As operações aritméticas são da ULA." },
+      { texto: "Faz AND, OR, XOR e NOT", resposta: 0, explicacao: "As operações lógicas também são da ULA." },
+      { texto: "Montada com circuitos parecidos com o meio somador", resposta: 0, explicacao: "Na escada: porta lógica → meio somador → ULA." },
+      { texto: "Quem \"cozinha\" na cozinha da CPU", resposta: 0, explicacao: "Na analogia do livro, a ULA cozinha, a UC é o chef e os registradores são a bancada." },
+      { texto: "Lê cada instrução e descobre o que ela pede", resposta: 1, explicacao: "Esse é o trabalho da Unidade de Controle." },
+      { texto: "Envia as ordens para as outras partes", resposta: 1, explicacao: "A UC comanda: ela diz para a ULA o que fazer." },
+      { texto: "Reconhece que ADD 2, 2 é uma soma", resposta: 1, explicacao: "Passo 2 do exemplo: a UC reconhece a soma e ordena à ULA que some." },
+      { texto: "O \"chef\" da cozinha da CPU", resposta: 1, explicacao: "Na analogia do livro, a UC é o chef." },
+      { texto: "Descobre se a instrução pede uma conta, mover um dado ou ler um sensor", resposta: 1, explicacao: "A UC interpreta a instrução e manda fazer o que ela pede." },
+      { texto: "Acumulador", resposta: 2, explicacao: "O Acumulador é o registrador que recebe o resultado da ULA." },
+      { texto: "Contador de Programa (PC)", resposta: 2, explicacao: "O PC é o registrador que guarda o endereço da próxima instrução." },
+      { texto: "Registrador de Instrução", resposta: 2, explicacao: "Ele guarda a instrução que está sendo executada agora." },
+      { texto: "Guarda o dado que está sendo usado agora", resposta: 2, explicacao: "Os registradores guardam o dado em uso, bem perto da ULA." },
+      { texto: "A memória mais rápida e a menor do computador", resposta: 2, explicacao: "Os registradores ficam colados na ULA e guardam poucos bytes." },
+      { texto: "A \"bancada\" da cozinha da CPU", resposta: 2, explicacao: "Na analogia do livro, os registradores são a bancada." },
+    ],
+  },
 ];
