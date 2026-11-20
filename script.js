@@ -166,3 +166,38 @@ function atualizarBotoesSom() {
     botao.setAttribute("aria-pressed", String(somLigado));
   });
 }
+
+// ---------- Menu ----------
+function escolherModo(modo) {
+  estado.modo = modo;
+  salvar("classifica-modo", modo);
+  document.querySelectorAll(".modo").forEach((botao) => {
+    botao.setAttribute("aria-checked", String(botao.dataset.modo === modo));
+  });
+}
+
+function montarMenu() {
+  listaTemas.innerHTML = "";
+
+  [...TEMAS, DESAFIO].forEach((tema) => {
+    const botao = criar(listaTemas, "button", "botao-tema" + (tema === DESAFIO ? " desafio" : ""));
+    botao.type = "button";
+    botao.addEventListener("click", () => iniciarJogo(tema.id));
+
+    criar(botao, "span", "tema-capitulo", tema.capitulo);
+    criar(botao, "span", "tema-nome", tema.nome);
+    criar(botao, "span", "tema-descricao", tema.descricao);
+
+    if (tema.categorias) {
+      const linha = criar(botao, "span", "tema-categorias");
+      tema.categorias.forEach((nome, i) => {
+        criar(linha, "span", "etiqueta", nome).style.background = `var(--caixa-${i + 1})`;
+      });
+    }
+
+    const total = tema === DESAFIO
+      ? TEMAS.reduce((soma, t) => soma + t.cartas.length, 0)
+      : tema.cartas.length;
+    criar(botao, "span", "tema-recorde", `${total} cartas · Recorde: ${lerRecorde(tema.id)}`);
+  });
+}
