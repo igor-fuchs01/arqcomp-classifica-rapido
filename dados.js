@@ -61,4 +61,27 @@ const TEMAS = [
       { texto: "A \"bancada\" da cozinha da CPU", resposta: 2, explicacao: "Na analogia do livro, os registradores são a bancada." },
     ],
   },
+
+  // ------------------------------------------------------------------
+  {
+    id: "ciclo",
+    capitulo: "Cap. 2.2",
+    nome: "Busca ou Execução?",
+    descricao: "Em qual fase do ciclo cada passo acontece?",
+    categorias: ["Busca", "Execução"],
+    cartas: [
+      { texto: "Buscar a instrução na memória", resposta: 0, explicacao: "É o primeiro passo (fetch) da fase de busca." },
+      { texto: "Ler a instrução no endereço indicado pelo PC", resposta: 0, explicacao: "Na busca, a CPU lê a instrução no endereço apontado pelo Contador de Programa." },
+      { texto: "Colocar a instrução no Registrador de Instrução", resposta: 0, explicacao: "Na busca, a instrução lida vai para o Registrador de Instrução." },
+      { texto: "O PC avança para a próxima instrução", resposta: 0, explicacao: "O PC avança no ciclo de busca, logo depois de a instrução ser lida." },
+      { texto: "Fetch", resposta: 0, explicacao: "Fetch = buscar. Faz parte da fase de busca." },
+      { texto: "Decodificar: descobrir o que a instrução pede (decode)", resposta: 0, explicacao: "Na versão em quatro passos do livro, buscar e decodificar formam a fase de busca." },
+      { texto: "A ULA faz a conta", resposta: 1, explicacao: "Calcular é o passo executar (execute), na fase de execução." },
+      { texto: "Execute", resposta: 1, explicacao: "Execute = executar. Faz parte da fase de execução." },
+      { texto: "Guardar o resultado num registrador ou na memória (write back)", resposta: 1, explicacao: "Executar e guardar o resultado formam a fase de execução." },
+      { texto: "Mover um dado", resposta: 1, explicacao: "Na execução, a UC manda fazer o que a instrução pede: uma conta, mover um dado ou ler um sensor." },
+      { texto: "Ler o sensor que a instrução pediu", resposta: 1, explicacao: "Fazer o que a instrução pede é a fase de execução." },
+      { texto: "O Acumulador recebe o 4 de ADD 2, 2", resposta: 1, explicacao: "Guardar o resultado (write back) é o último passo da execução." },
+    ],
+  },
 ];
