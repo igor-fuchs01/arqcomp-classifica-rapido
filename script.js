@@ -508,3 +508,76 @@ function piscarCaixa(indice) {
   caixa.classList.add("apertada");
   setTimeout(() => caixa.classList.remove("apertada"), 120);
 }
+
+// ---------- Controles ----------
+document.querySelectorAll(".modo").forEach((botao) => {
+  botao.addEventListener("click", () => escolherModo(botao.dataset.modo));
+});
+
+document.querySelectorAll(".botao-som").forEach((botao) => {
+  botao.addEventListener("click", () => {
+    somLigado = !somLigado;
+    salvar("classifica-som", somLigado ? "1" : "0");
+    atualizarBotoesSom();
+    tocar("certo");
+  });
+});
+
+caixasEl.addEventListener("click", (evento) => {
+  const caixa = evento.target.closest(".caixa");
+  if (!caixa) return;
+  if (estado.aguardando) {
+    avancar();
+  } else {
+    responder(Number(caixa.dataset.indice));
+  }
+});
+
+areaJogo.addEventListener("click", (evento) => {
+  if (evento.target.closest("#pausa")) return;
+  if (estado.aguardando) avancar();
+});
+
+botaoPausa.addEventListener("click", alternarPausa);
+$("botao-continuar").addEventListener("click", alternarPausa);
+$("botao-encerrar").addEventListener("click", encerrar);
+$("botao-repetir").addEventListener("click", () => iniciarJogo(estado.temaId));
+$("botao-menu").addEventListener("click", voltarAoMenu);
+
+document.addEventListener("keydown", (evento) => {
+  if (!telas.jogo.classList.contains("ativa") || !estado.rodando) return;
+  const tecla = evento.key;
+
+  if (tecla === "Escape") return encerrar();
+  if (tecla === "p" || tecla === "P") return alternarPausa();
+
+  if (estado.aguardando && (tecla === "Enter" || tecla === " ")) {
+    evento.preventDefault();
+    return avancar();
+  }
+
+  if (!estado.atual) return;
+  const n = estado.atual.tema.categorias.length;
+  let indice = null;
+  if (/^[1-9]$/.test(tecla) && Number(tecla) <= n) indice = Number(tecla) - 1;
+  else if (tecla in SETAS[n]) indice = SETAS[n][tecla];
+  if (indice === null) return;
+
+  evento.preventDefault();
+  if (estado.aguardando) return avancar(); // apertar uma caixa durante a explicação pula para a próxima
+  piscarCaixa(indice);
+  responder(indice);
+});
+
+// trocou de aba no meio do jogo: pausa sozinho
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden && estado.rodando && estado.cartaCaindo && !estado.pausado && !emTreino()) {
+    alternarPausa();
+  }
+  estado.ultimoTempo = performance.now();
+});
+
+// ---------- Início ----------
+escolherModo(ler("classifica-modo", "normal") === "treino" ? "treino" : "normal");
+atualizarBotoesSom();
+montarMenu();
