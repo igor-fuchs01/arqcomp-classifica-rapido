@@ -430,3 +430,81 @@ function atualizarHud() {
     ? "∞"
     : "❤️".repeat(Math.max(estado.vidas, 0)) + "🖤".repeat(VIDAS_INICIAIS - Math.max(estado.vidas, 0));
 }
+
+function alternarPausa() {
+  if (!estado.rodando || emTreino()) return;
+  if (!estado.pausado && !estado.cartaCaindo) return; // só pausa com a carta caindo
+
+  estado.pausado = !estado.pausado;
+  pausaEl.hidden = !estado.pausado;
+  botaoPausa.textContent = estado.pausado ? "▶ Continuar" : "⏸ Pausar";
+  estado.ultimoTempo = performance.now();
+}
+
+function pararJogo() {
+  estado.rodando = false;
+  estado.cartaCaindo = false;
+  estado.aguardando = false;
+  clearTimeout(estado.timer);
+  cancelAnimationFrame(estado.idLoop);
+}
+
+function encerrar() {
+  if (!estado.rodando) return;
+  if (estado.acertos + estado.erros === 0) {
+    voltarAoMenu();
+  } else {
+    fimDeJogo();
+  }
+}
+
+function fimDeJogo() {
+  pararJogo();
+
+  const tema = buscarTema(estado.temaId);
+  let novoRecorde = false;
+  if (!emTreino() && estado.pontos > lerRecorde(tema.id)) {
+    salvarRecorde(tema.id, estado.pontos);
+    novoRecorde = true;
+  }
+
+  const total = estado.acertos + estado.erros;
+  $("fim-tema").textContent = tema.nome + (emTreino() ? " · modo treino (recorde não conta)" : "");
+  $("fim-pontos").textContent = estado.pontos;
+  $("fim-acertos").textContent = estado.acertos;
+  $("fim-erros").textContent = estado.erros;
+  $("fim-precisao").textContent = (total ? Math.round((estado.acertos / total) * 100) : 0) + "%";
+  $("fim-recorde").hidden = !novoRecorde;
+
+  mostrarRevisao();
+  tocar("fim");
+  mostrarTela("fim");
+}
+
+function mostrarRevisao() {
+  const lista = $("lista-revisao");
+  lista.innerHTML = "";
+  $("sem-erros").hidden = estado.revisao.length > 0;
+
+  estado.revisao.forEach(({ carta, tema }) => {
+    const item = criar(lista, "li");
+    criar(item, "span", "revisao-tema", tema.nome);
+    criar(item, "strong", "", carta.texto);
+    item.append(" → ");
+    criar(item, "span", "revisao-resposta", tema.categorias[carta.resposta]);
+    criar(item, "p", "revisao-explicacao", carta.explicacao);
+  });
+}
+
+function voltarAoMenu() {
+  pararJogo();
+  montarMenu();
+  mostrarTela("inicio");
+}
+
+function piscarCaixa(indice) {
+  const caixa = caixasEl.children[indice];
+  if (!caixa) return;
+  caixa.classList.add("apertada");
+  setTimeout(() => caixa.classList.remove("apertada"), 120);
+}
