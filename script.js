@@ -313,3 +313,120 @@ function loop(agora) {
 
   estado.idLoop = requestAnimationFrame(loop);
 }
+
+function responder(indice) {
+  if (!estado.cartaCaindo || estado.pausado) return;
+  if (indice >= estado.atual.tema.categorias.length) return;
+
+  voarParaCaixa(indice);
+  if (indice === estado.atual.carta.resposta) {
+    acertar();
+  } else {
+    errar(indice);
+  }
+}
+
+// a carta voa até a caixa escolhida
+function voarParaCaixa(indice) {
+  const caixa = caixasEl.children[indice];
+  const area = areaJogo.getBoundingClientRect();
+  const alvo = caixa.getBoundingClientRect();
+  const deslocamentoX = alvo.left + alvo.width / 2 - (area.left + area.width / 2);
+
+  cartaEl.classList.add("saindo");
+  estado.posY = areaJogo.clientHeight;
+  posicionarCarta(deslocamentoX);
+}
+
+function acertar() {
+  estado.cartaCaindo = false;
+  estado.acertos++;
+  estado.sequencia++;
+
+  const mult = multiplicador();
+  const ganho = PONTOS_POR_ACERTO * mult;
+  estado.pontos += ganho;
+
+  let mensagem = `✓ Certo! +${ganho}`;
+  const subiuNivel = !emTreino() && estado.acertos % ACERTOS_POR_NIVEL === 0;
+
+  if (subiuNivel) {
+    mensagem += ` · Nível ${nivelAtual()}, mais rápido!`;
+    tocar("nivel");
+  } else {
+    tocar("certo");
+  }
+
+  // no treino, também mostra a explicação para fixar o conteúdo
+  if (emTreino()) mensagem += " " + estado.atual.carta.explicacao;
+
+  atualizarHud();
+  mostrarFeedback(true, mensagem, emTreino());
+  esperarParaAvancar(emTreino() ? TEMPO_FEEDBACK_TREINO : TEMPO_FEEDBACK_CERTO);
+}
+
+// indiceEscolhido = null quando o tempo acabou
+function errar(indiceEscolhido) {
+  estado.cartaCaindo = false;
+  estado.erros++;
+  estado.sequencia = 0;
+  if (!emTreino()) estado.vidas--;
+
+  const { carta, tema } = estado.atual;
+  if (indiceEscolhido === null) cartaEl.classList.add("saindo");
+  guardarParaRevisao(carta, tema);
+
+  const inicio = indiceEscolhido === null ? "⏱ Tempo esgotado!" : "✗ Errou!";
+  const mensagem = `${inicio} Resposta certa: ${tema.categorias[carta.resposta]}. ${carta.explicacao}`;
+
+  tocar("errado");
+  atualizarHud();
+  mostrarFeedback(false, mensagem, true);
+
+  // no treino espera o jogador; no normal avança sozinho depois de dar tempo de ler
+  esperarParaAvancar(emTreino() ? null : Math.min(2000 + mensagem.length * 30, 6000));
+}
+
+function esperarParaAvancar(ms) {
+  estado.aguardando = true;
+  clearTimeout(estado.timer);
+  if (ms !== null) estado.timer = setTimeout(avancar, ms);
+}
+
+function avancar() {
+  if (!estado.aguardando) return;
+  clearTimeout(estado.timer);
+  estado.aguardando = false;
+
+  if (!emTreino() && estado.vidas <= 0) {
+    fimDeJogo();
+  } else {
+    proximaCarta();
+  }
+}
+
+function mostrarFeedback(certo, mensagem, comDica) {
+  feedback.textContent = mensagem;
+  if (comDica) criar(feedback, "small", "", "Enter, toque ou clique para continuar");
+  feedback.classList.toggle("certo", certo);
+  feedback.classList.toggle("errado", !certo);
+  feedback.classList.add("visivel");
+  areaJogo.classList.add(certo ? "flash-certo" : "flash-errado");
+}
+
+function guardarParaRevisao(carta, tema) {
+  const repetida = estado.revisao.some((item) => item.carta === carta);
+  if (!repetida) estado.revisao.push({ carta, tema });
+}
+
+function atualizarHud() {
+  const mult = multiplicador();
+  $("hud-pontos").textContent = estado.pontos;
+  $("hud-sequencia").textContent = estado.sequencia;
+  $("hud-multiplicador").textContent = "×" + mult;
+  $("hud-multiplicador").classList.toggle("ativo", mult > 1);
+  $("hud-nivel").textContent = emTreino() ? "–" : nivelAtual();
+  $("hud-vidas").textContent = emTreino()
+    ? "∞"
+    : "❤️".repeat(Math.max(estado.vidas, 0)) + "🖤".repeat(VIDAS_INICIAIS - Math.max(estado.vidas, 0));
+}
