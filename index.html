@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Classifica Rápido</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+
+    <!-- TELA 1: INÍCIO -->
+    <section id="tela-inicio" class="tela ativa">
+      <div class="topo">
+        <p class="selo">Arquitetura Computacional</p>
+        <button class="botao-som" type="button" aria-label="Ligar ou desligar o som">🔊</button>
+      </div>
+      <h1>Classifica Rápido</h1>
+      <p class="subtitulo">As cartas caem. Jogue cada uma na caixa certa antes que cheguem ao fim.</p>
+
+      <div class="regras">
+        <p><kbd>←</kbd> <kbd>↓</kbd> <kbd>→</kbd> ou <kbd>1</kbd> a <kbd>4</kbd> escolhem a caixa · <kbd>P</kbd> pausa · <kbd>Esc</kbd> encerra</p>
+        <p>No celular, toque nas caixas. A cada 5 acertos seguidos seus pontos valem mais e a cada 5 acertos as cartas caem mais rápido.</p>
+      </div>
+
+      <h2>Modo</h2>
+      <div class="modos" role="radiogroup" aria-label="Modo de jogo">
+        <button class="modo" type="button" role="radio" data-modo="normal">
+          <strong>Normal</strong>
+          <span>3 vidas, as cartas caem cada vez mais rápido</span>
+        </button>
+        <button class="modo" type="button" role="radio" data-modo="treino">
+          <strong>Treino</strong>
+          <span>sem tempo e sem perder vidas, para estudar</span>
+        </button>
+      </div>
+
+      <h2>Escolha o tema</h2>
+      <div id="lista-temas" class="temas"></div>
+    </section>
+
+    <!-- TELA 2: JOGO -->
+    <section id="tela-jogo" class="tela">
+      <header class="hud">
+        <div class="hud-item">
+          <span class="hud-rotulo">Pontos</span>
+          <span id="hud-pontos" class="hud-valor">0</span>
+        </div>
+        <div class="hud-item">
+          <span class="hud-rotulo">Sequência</span>
+          <span class="hud-valor"><span id="hud-sequencia">0</span> <small id="hud-multiplicador" class="multiplicador">×1</small></span>
+        </div>
+        <div class="hud-item">
+          <span class="hud-rotulo">Nível</span>
+          <span id="hud-nivel" class="hud-valor">1</span>
+        </div>
+        <div class="hud-item">
+          <span class="hud-rotulo">Vidas</span>
+          <span id="hud-vidas" class="hud-valor">❤️❤️❤️</span>
+        </div>
+      </header>
+
+      <div class="barra-jogo">
+        <span id="nome-tema" class="nome-tema"></span>
+        <div class="barra-botoes">
+          <button class="botao-som botao-pequeno" type="button" aria-label="Ligar ou desligar o som">🔊</button>
+          <button id="botao-pausa" class="botao-pequeno" type="button">⏸ Pausar</button>
+          <button id="botao-encerrar" class="botao-pequeno" type="button">Encerrar</button>
+        </div>
+      </div>
+
+      <div id="area-jogo" class="area-jogo">
+        <div id="carta" class="carta">
+          <span id="carta-tema" class="carta-tema"></span>
+          <span id="carta-texto"></span>
+        </div>
+        <div id="feedback" class="feedback" aria-live="polite"></div>
+        <div id="pausa" class="pausa" hidden>
+          <p>⏸ Pausado</p>
+          <button id="botao-continuar" class="botao principal" type="button">Continuar</button>
+        </div>
+      </div>
+
+      <div id="caixas" class="caixas"></div>
+    </section>
+
+    <!-- TELA 3: FIM -->
+    <section id="tela-fim" class="tela">
+      <h1>Fim de jogo</h1>
+      <p id="fim-tema" class="subtitulo"></p>
+      <p id="fim-recorde" class="novo-recorde" hidden>🏆 Novo recorde!</p>
+      <div class="resultado">
+        <div class="resultado-item">
+          <span class="resultado-valor" id="fim-pontos">0</span>
+          <span class="resultado-rotulo">pontos</span>
+        </div>
+        <div class="resultado-item">
+          <span class="resultado-valor certo" id="fim-acertos">0</span>
+          <span class="resultado-rotulo">acertos</span>
+        </div>
+        <div class="resultado-item">
+          <span class="resultado-valor errado" id="fim-erros">0</span>
+          <span class="resultado-rotulo">erros</span>
+        </div>
+        <div class="resultado-item">
+          <span class="resultado-valor" id="fim-precisao">0%</span>
+          <span class="resultado-rotulo">precisão</span>
+        </div>
+      </div>
+      <div class="botoes-fim">
+        <button id="botao-repetir" class="botao principal" type="button">Jogar de novo</button>
+        <button id="botao-menu" class="botao" type="button">Trocar tema</button>
+      </div>
+
+      <h2>Para revisar</h2>
+      <p id="sem-erros" class="sem-erros" hidden>Nenhum erro. Mandou bem! 🎉</p>
+      <ul id="lista-revisao" class="revisao"></ul>
+    </section>
+
+  </main>
+
+  <script src="dados.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
