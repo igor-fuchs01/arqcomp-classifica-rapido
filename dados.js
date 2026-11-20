@@ -84,4 +84,33 @@ const TEMAS = [
       { texto: "O Acumulador recebe o 4 de ADD 2, 2", resposta: 1, explicacao: "Guardar o resultado (write back) é o último passo da execução." },
     ],
   },
+
+  // ------------------------------------------------------------------
+  {
+    id: "chip",
+    capitulo: "Cap. 3",
+    nome: "Microprocessador ou Microcontrolador?",
+    descricao: "CPU sozinha num chip ou um computador inteiro num chip só?",
+    categorias: ["Microprocessador", "Microcontrolador"],
+    cartas: [
+      { texto: "Intel Core", resposta: 0, explicacao: "O Intel Core é um microprocessador: precisa de RAM e armazenamento fora do chip." },
+      { texto: "AMD Ryzen", resposta: 0, explicacao: "O AMD Ryzen é um microprocessador de computadores e notebooks." },
+      { texto: "Processador do notebook", resposta: 0, explicacao: "Notebooks usam microprocessadores, que dependem de RAM e SSD externos." },
+      { texto: "Servidor", resposta: 0, explicacao: "Computadores, notebooks e servidores usam microprocessadores." },
+      { texto: "Precisa de RAM e SSD fora do chip", resposta: 0, explicacao: "O microprocessador tem só a CPU; memória e periféricos ficam fora." },
+      { texto: "Depende de uma placa-mãe para ligar tudo", resposta: 0, explicacao: "O microprocessador depende da placa-mãe para se ligar à memória e ao armazenamento." },
+      { texto: "Roda qualquer tipo de programa", resposta: 0, explicacao: "Flexibilidade alta é característica do microprocessador." },
+      { texto: "Alto consumo de energia", resposta: 0, explicacao: "Microprocessadores consomem mais energia que microcontroladores." },
+      { texto: "ATmega328P", resposta: 1, explicacao: "O ATmega328P, o chip do Arduino Uno, é um microcontrolador." },
+      { texto: "ESP32", resposta: 1, explicacao: "O ESP32 é um microcontrolador que já vem com Wi-Fi e Bluetooth." },
+      { texto: "PIC", resposta: 1, explicacao: "A família PIC é de microcontroladores muito usados na indústria." },
+      { texto: "STM32", resposta: 1, explicacao: "A família STM32 é de microcontroladores muito usados na indústria." },
+      { texto: "Máquina de lavar", resposta: 1, explicacao: "Tarefa específica e baixo custo: é trabalho para um microcontrolador." },
+      { texto: "CPU + memória + entrada e saída no mesmo chip", resposta: 1, explicacao: "Ter tudo num chip só é o que define um microcontrolador." },
+      { texto: "Conversor analógico-digital (analogRead) dentro do chip", resposta: 1, explicacao: "O microcontrolador já traz o conversor que transforma a tensão do sensor num número." },
+      { texto: "Comunicação serial embutida no chip", resposta: 1, explicacao: "O microcontrolador já traz a comunicação serial, usada para falar com o computador." },
+      { texto: "Feito para uma tarefa específica", resposta: 1, explicacao: "O microcontrolador é otimizado para tarefas como ler um sensor ou acender um LED." },
+      { texto: "Baixo custo e baixo consumo", resposta: 1, explicacao: "Baixo custo e baixo consumo são marcas do microcontrolador." },
+    ],
+  },
 ];
