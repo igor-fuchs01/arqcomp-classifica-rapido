@@ -125,3 +125,44 @@ function mostrarTela(nome) {
   telas[nome].classList.add("ativa");
   window.scrollTo(0, 0);
 }
+
+// ---------- Som (Web Audio, sem arquivos) ----------
+let somLigado = ler("classifica-som", "1") === "1";
+let audio = null;
+
+const NOTAS = {
+  certo: [660, 880],
+  errado: [220, 165],
+  nivel: [523, 659, 784],
+  fim: [392, 330, 262],
+};
+
+function tocar(tipo) {
+  if (!somLigado) return;
+  try {
+    audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+    const volume = tipo === "errado" ? 0.06 : 0.12;
+    NOTAS[tipo].forEach((frequencia, i) => {
+      const oscilador = audio.createOscillator();
+      const ganho = audio.createGain();
+      const inicio = audio.currentTime + i * 0.09;
+      oscilador.type = tipo === "errado" ? "square" : "sine";
+      oscilador.frequency.value = frequencia;
+      ganho.gain.setValueAtTime(0.0001, inicio);
+      ganho.gain.exponentialRampToValueAtTime(volume, inicio + 0.01);
+      ganho.gain.exponentialRampToValueAtTime(0.0001, inicio + 0.16);
+      oscilador.connect(ganho).connect(audio.destination);
+      oscilador.start(inicio);
+      oscilador.stop(inicio + 0.17);
+    });
+  } catch {
+    // navegador sem Web Audio: segue sem som
+  }
+}
+
+function atualizarBotoesSom() {
+  document.querySelectorAll(".botao-som").forEach((botao) => {
+    botao.textContent = somLigado ? "🔊" : "🔇";
+    botao.setAttribute("aria-pressed", String(somLigado));
+  });
+}
