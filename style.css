@@ -1,0 +1,147 @@
+/* ===== Cores e medidas ===== */
+:root {
+  --fundo: #f4f6fb;
+  --painel: #ffffff;
+  --texto: #1e2a44;
+  --texto-suave: #5c6883;
+  --borda: #d9e0ee;
+  --azul: #0a63c9;
+  --verde: #12884c;
+  --vermelho: #c92a2a;
+  --carta: #1e2a44;
+  --carta-texto: #ffffff;
+  /* uma cor para cada caixa (até 4) */
+  --caixa-1: #0a63c9;
+  --caixa-2: #d0124f;
+  --caixa-3: #2f7a83;
+  --caixa-4: #5a5476;
+  --sombra: 0 6px 20px rgba(30, 42, 68, 0.12);
+  --raio: 14px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fundo: #0f1524;
+    --painel: #18213a;
+    --texto: #e8ecf6;
+    --texto-suave: #a3aec6;
+    --borda: #2a3654;
+    --azul: #4b9bff;
+    --verde: #34c77b;
+    --vermelho: #ff6b6b;
+    --carta: #e8ecf6;
+    --carta-texto: #0f1524;
+    --caixa-1: #2f7fe0;
+    --caixa-2: #e0306b;
+    --caixa-3: #2f8f99;
+    --caixa-4: #6d6690;
+    --sombra: 0 6px 20px rgba(0, 0, 0, 0.4);
+  }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+  background: var(--fundo);
+  color: var(--texto);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+button:focus-visible {
+  outline: 3px solid var(--azul);
+  outline-offset: 2px;
+}
+
+.app {
+  width: 100%;
+  max-width: 720px;
+  padding: 24px 16px 40px;
+}
+
+/* ===== Telas ===== */
+.tela {
+  display: none;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tela.ativa {
+  display: flex;
+}
+
+h1 {
+  font-size: clamp(2rem, 7vw, 2.8rem);
+  line-height: 1.1;
+}
+
+h2 {
+  font-size: 1.1rem;
+  margin-top: 8px;
+}
+
+.topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.selo {
+  color: var(--caixa-2);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.subtitulo {
+  color: var(--texto-suave);
+  font-size: 1.05rem;
+}
+
+.regras {
+  background: var(--painel);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: var(--texto-suave);
+  line-height: 1.6;
+}
+
+kbd {
+  display: inline-block;
+  min-width: 1.8em;
+  padding: 1px 6px;
+  border: 1px solid var(--borda);
+  border-bottom-width: 3px;
+  border-radius: 6px;
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: inherit;
+  font-size: 0.9em;
+  text-align: center;
+}
+
+.botao-som {
+  background: var(--painel);
+  border: 1px solid var(--borda);
+  border-radius: 999px;
+  width: 40px;
+  height: 40px;
+  font-size: 1.1rem;
+}
