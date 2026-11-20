@@ -142,4 +142,30 @@ const TEMAS = [
       { texto: "O conversor analógico-digital trabalha quando você usa analogRead()", resposta: 0, explicacao: "Ele transforma a tensão do sensor em um número." },
     ],
   },
+
+  // ------------------------------------------------------------------
+  {
+    id: "barramento",
+    capitulo: "Cap. 4",
+    nome: "Qual barramento?",
+    descricao: "Endereço (ONDE?), dados (O QUÊ?) ou controle (QUANDO e COMO?).",
+    categorias: ["Endereço", "Dados", "Controle"],
+    cartas: [
+      { texto: "Responde à pergunta: ONDE?", resposta: 0, explicacao: "O barramento de endereço diz onde a CPU quer ler ou escrever." },
+      { texto: "Só sai da CPU", resposta: 0, explicacao: "É a CPU que escolhe onde ler ou escrever." },
+      { texto: "Leva o número da posição de memória", resposta: 0, explicacao: "O endereço é o número da posição que a CPU quer acessar." },
+      { texto: "Com 11 fios, alcança 2.048 posições", resposta: 0, explicacao: "Os fios de endereço definem quantas posições existem: 2¹¹ = 2.048." },
+      { texto: "Define quantas posições a CPU consegue acessar", resposta: 0, explicacao: "Com n fios de endereço, existem 2ⁿ posições." },
+      { texto: "Responde à pergunta: O QUÊ?", resposta: 1, explicacao: "O barramento de dados leva o valor que está sendo lido ou escrito." },
+      { texto: "Vai e volta entre a CPU e a memória", resposta: 1, explicacao: "Na leitura, o dado vem para a CPU; na escrita, vai para a memória." },
+      { texto: "Leva o valor lido do sensor até a CPU", resposta: 1, explicacao: "Valores lidos ou escritos passam pelo barramento de dados." },
+      { texto: "Também leva as instruções até a CPU", resposta: 1, explicacao: "Instruções e dados entram na CPU pelo mesmo caminho: o barramento de dados." },
+      { texto: "A memória coloca nele o conteúdo da posição pedida", resposta: 1, explicacao: "Passo 3 da leitura: o conteúdo vai para o barramento de dados." },
+      { texto: "Responde à pergunta: QUANDO e COMO?", resposta: 2, explicacao: "O barramento de controle leva os sinais de comando." },
+      { texto: "Avisa se a operação é de leitura ou de escrita", resposta: 2, explicacao: "Esse é um sinal de comando, do barramento de controle." },
+      { texto: "Diz se o destino é a memória ou a entrada e saída", resposta: 2, explicacao: "O barramento de controle indica o destino da operação." },
+      { texto: "Leva o ritmo do clock", resposta: 2, explicacao: "O ritmo do clock é um sinal do barramento de controle." },
+      { texto: "Leva o aviso \"é uma leitura, na memória\"", resposta: 2, explicacao: "Passo 2 da leitura: a CPU avisa pelo barramento de controle." },
+    ],
+  },
 ];
