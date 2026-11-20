@@ -221,4 +221,31 @@ const TEMAS = [
       { texto: "A mais lenta e a mais barata por byte", resposta: 3, explicacao: "Quanto mais longe da CPU, mais lenta, maior e mais barata." },
     ],
   },
+
+  // ------------------------------------------------------------------
+  {
+    id: "dma",
+    capitulo: "Cap. 6",
+    nome: "Com DMA ou Sem DMA?",
+    descricao: "Quem faz o trabalho de copiar: a CPU ou um controlador próprio?",
+    categorias: ["Com DMA", "Sem DMA"],
+    cartas: [
+      { texto: "A CPU lê um byte, guarda num registrador, escreve na RAM e repete", resposta: 1, explicacao: "Sem DMA, a CPU faz a cópia byte a byte." },
+      { texto: "A CPU fica presa no trabalho braçal da cópia", resposta: 1, explicacao: "Sem DMA, a CPU não consegue fazer mais nada durante a cópia." },
+      { texto: "Toda transferência passa pela CPU", resposta: 1, explicacao: "É assim quando não existe controlador de DMA." },
+      { texto: "Arduino Uno (ATmega328P)", resposta: 1, explicacao: "O ATmega328P não tem controlador de DMA." },
+      { texto: "A CPU move cada byte do vídeo, um por um", resposta: 1, explicacao: "Sem DMA, a CPU carrega cada byte e não consegue fazer mais nada." },
+      { texto: "Arquivo de milhões de bytes = milhões de repetições pela CPU", resposta: 1, explicacao: "É o problema que o DMA resolve: sem ele, a CPU repete a cópia byte a byte." },
+      { texto: "O computador trava enquanto copia um arquivo grande", resposta: 1, explicacao: "Sem DMA, a CPU fica ocupada com a cópia e não atende outras tarefas." },
+      { texto: "A CPU só configura a cópia e fica livre", resposta: 0, explicacao: "Passo 1 do DMA: a CPU diz de onde, para onde e quantos bytes." },
+      { texto: "Um controlador próprio copia direto para a RAM", resposta: 0, explicacao: "Passo 2: o controlador de DMA usa o barramento e move os dados." },
+      { texto: "O controlador avisa a CPU quando terminou", resposta: 0, explicacao: "Passo 3: o controlador sinaliza que os dados já estão na memória." },
+      { texto: "Copiar um vídeo do pendrive e seguir navegando sem travar", resposta: 0, explicacao: "Com DMA, a CPU delega a cópia e continua livre." },
+      { texto: "ESP32", resposta: 0, explicacao: "Microcontroladores mais recentes, como o ESP32, já têm DMA." },
+      { texto: "Placa de rede recebendo dados da internet", resposta: 0, explicacao: "A placa de rede usa DMA para os dados que chegam e saem." },
+      { texto: "Placa de vídeo carregando texturas", resposta: 0, explicacao: "A placa de vídeo usa DMA para imagens e texturas." },
+      { texto: "Placa de som tocando áudio", resposta: 0, explicacao: "A placa de som usa DMA para o áudio que está tocando." },
+      { texto: "Controlador de disco gravando um arquivo", resposta: 0, explicacao: "O controlador de disco usa DMA para arquivos lidos ou gravados." },
+    ],
+  },
 ];
