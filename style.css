@@ -580,3 +580,39 @@ kbd {
   color: var(--texto-suave);
   font-size: 0.92rem;
 }
+
+/* ===== Celular ===== */
+@media (max-width: 480px) {
+  .modos {
+    grid-template-columns: 1fr;
+  }
+
+  .hud-valor {
+    font-size: 1.05rem;
+  }
+
+  .caixas.n4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .caixa {
+    font-size: 0.85rem;
+    min-height: 64px;
+  }
+
+  .carta {
+    font-size: 1rem;
+  }
+
+  .resultado {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .botao-tema,
+  .feedback,
+  .carta.saindo {
+    transition: none;
+  }
+}
