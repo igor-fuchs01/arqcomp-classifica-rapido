@@ -193,4 +193,32 @@ const TEMAS = [
       { texto: "Firmware BIOS / UEFI", resposta: 1, explicacao: "O firmware fica em memória Flash, não volátil, e por isso pode ser atualizado." },
     ],
   },
+
+  // ------------------------------------------------------------------
+  {
+    id: "hierarquia",
+    capitulo: "Cap. 5.1",
+    nome: "Hierarquia de memória",
+    descricao: "As caixas seguem a pirâmide: da mais rápida (1) para a mais lenta (4).",
+    categorias: ["Registradores", "Cache", "RAM", "Armazenamento"],
+    cartas: [
+      { texto: "Tamanho: poucos bytes", resposta: 0, explicacao: "Registradores guardam bytes; cache, KB a MB; RAM, GB; armazenamento, centenas de GB a TB." },
+      { texto: "Fica dentro da CPU, colada na ULA", resposta: 0, explicacao: "Os registradores são o topo da pirâmide." },
+      { texto: "A mais rápida e a mais cara por byte", resposta: 0, explicacao: "Quanto mais perto da CPU, mais rápida, menor e mais cara." },
+      { texto: "Guarda o dado que está sendo usado agora", resposta: 0, explicacao: "Os registradores guardam o dado em uso; a cache, o que foi usado há pouco." },
+      { texto: "Tamanho: KB a MB", resposta: 1, explicacao: "A cache fica entre os registradores e a RAM." },
+      { texto: "Cópia do que a CPU usou há pouco", resposta: 1, explicacao: "A cache evita ir buscar tudo na RAM, que é mais lenta." },
+      { texto: "Acesso em cerca de 0,5 ns (nível 1)", resposta: 1, explicacao: "A cache L1 responde em cerca de 0,5 ns; a RAM, em cerca de 100 ns." },
+      { texto: "O ATmega328P não tem esta camada", resposta: 1, explicacao: "O Uno não tem cache: a CPU lê direto da Flash e da RAM." },
+      { texto: "Tamanho: alguns GB no notebook", resposta: 2, explicacao: "A RAM (memória principal) tem alguns gigabytes." },
+      { texto: "Acesso em cerca de 100 ns", resposta: 2, explicacao: "Buscar na RAM é cerca de 200 vezes mais lento que na cache L1." },
+      { texto: "Programas em execução e seus dados", resposta: 2, explicacao: "A RAM é a memória de trabalho do computador." },
+      { texto: "Onde a API do PI roda no notebook", resposta: 2, explicacao: "A leitura do LM35 passa pela RAM do notebook, onde a API roda." },
+      { texto: "Tamanho: centenas de GB a TB", resposta: 3, explicacao: "O armazenamento é a base da pirâmide: o maior de todos." },
+      { texto: "SSD ou HD", resposta: 3, explicacao: "SSD e HD são o armazenamento." },
+      { texto: "A única camada não volátil", resposta: 3, explicacao: "Registradores, cache e RAM perdem tudo sem energia; o armazenamento não." },
+      { texto: "Onde o banco de dados guarda a leitura do LM35 para sempre", resposta: 3, explicacao: "No PI, a leitura termina no SSD, guardada de forma permanente." },
+      { texto: "A mais lenta e a mais barata por byte", resposta: 3, explicacao: "Quanto mais longe da CPU, mais lenta, maior e mais barata." },
+    ],
+  },
 ];
