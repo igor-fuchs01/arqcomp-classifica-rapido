@@ -113,4 +113,33 @@ const TEMAS = [
       { texto: "Baixo custo e baixo consumo", resposta: 1, explicacao: "Baixo custo e baixo consumo são marcas do microcontrolador." },
     ],
   },
+
+  // ------------------------------------------------------------------
+  {
+    id: "arduino",
+    capitulo: "Cap. 3.1",
+    nome: "Arduino Uno: verdadeiro ou falso?",
+    descricao: "Os números e os blocos da placa que está na sua bancada.",
+    categorias: ["Verdadeiro", "Falso"],
+    cartas: [
+      { texto: "A entrada recomendada pelo conector de energia é de 7 a 12 V", resposta: 0, explicacao: "Pelo conector, 7 a 12 V; pela USB, 5 V." },
+      { texto: "Pela USB, o Uno é alimentado com 5 V", resposta: 0, explicacao: "Pela USB a placa recebe 5 V." },
+      { texto: "A placa entrega 5 V e 3,3 V para os circuitos", resposta: 0, explicacao: "A fonte converte a energia de fora nessas duas tensões." },
+      { texto: "O clock do Uno é de 16 GHz", resposta: 1, explicacao: "São 16 MHz: 16 milhões de batidas por segundo." },
+      { texto: "A memória Flash do Uno tem 32 KB", resposta: 0, explicacao: "Flash de 32 KB, RAM de 2 KB e EEPROM de 1 KB." },
+      { texto: "A RAM do Uno tem 2 GB", resposta: 1, explicacao: "A RAM do Uno tem 2 KB (2.048 bytes), não 2 GB." },
+      { texto: "A EEPROM do Uno tem 1 KB", resposta: 0, explicacao: "Isso mesmo: 1 KB para dados que sobrevivem ao desligamento." },
+      { texto: "O Uno tem 14 pinos digitais e 6 entradas analógicas", resposta: 0, explicacao: "São 14 pinos digitais e 6 entradas analógicas." },
+      { texto: "As entradas analógicas vão de A0 a A7", resposta: 1, explicacao: "São 6 entradas: de A0 a A5." },
+      { texto: "Os pinos 0 e 1 são usados na comunicação serial", resposta: 0, explicacao: "Eles têm um circuito extra embutido no chip para a serial." },
+      { texto: "Todos os 14 pinos digitais conseguem variar o brilho de um LED", resposta: 1, explicacao: "Só 6 pinos digitais conseguem variar a intensidade de um LED." },
+      { texto: "0,5 KB da Flash já vem ocupado por um programa de fábrica", resposta: 0, explicacao: "Esse pequeno programa recebe o seu código pela USB." },
+      { texto: "\"Arduino\" é o nome do microcontrolador", resposta: 1, explicacao: "Arduino é o nome da placa. O microcontrolador é o ATmega328P." },
+      { texto: "Desligar o Arduino apaga o programa gravado", resposta: 1, explicacao: "O programa fica na Flash, que não perde o conteúdo sem energia." },
+      { texto: "A EEPROM perde o conteúdo quando a energia acaba", resposta: 1, explicacao: "A EEPROM é não volátil: guarda dados que sobrevivem ao desligamento." },
+      { texto: "A faixa recomendada pelo conector de energia é de 12 a 24 V", resposta: 1, explicacao: "A entrada recomendada é de 7 a 12 V." },
+      { texto: "O firmware é o programa que você escreve na IDE", resposta: 0, explicacao: "O firmware é o programa gravado no chip, e fica na Flash." },
+      { texto: "O conversor analógico-digital trabalha quando você usa analogRead()", resposta: 0, explicacao: "Ele transforma a tensão do sensor em um número." },
+    ],
+  },
 ];
