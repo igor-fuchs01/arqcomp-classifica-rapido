@@ -168,4 +168,29 @@ const TEMAS = [
       { texto: "Leva o aviso \"é uma leitura, na memória\"", resposta: 2, explicacao: "Passo 2 da leitura: a CPU avisa pelo barramento de controle." },
     ],
   },
+
+  // ------------------------------------------------------------------
+  {
+    id: "memoria",
+    capitulo: "Cap. 5",
+    nome: "Volátil ou Não Volátil?",
+    descricao: "O que acontece com cada memória quando a energia acaba?",
+    categorias: ["Volátil", "Não volátil"],
+    cartas: [
+      { texto: "RAM", resposta: 0, explicacao: "A RAM é a memória de trabalho e perde o conteúdo quando a energia acaba." },
+      { texto: "Cache", resposta: 0, explicacao: "A cache guarda uma cópia do que a CPU usou há pouco e é volátil." },
+      { texto: "Registradores", resposta: 0, explicacao: "Os registradores ficam dentro da CPU e são voláteis, como a cache." },
+      { texto: "Variável que conta quantas vezes o loop() rodou", resposta: 0, explicacao: "Variáveis ficam na RAM. Tirou o cabo USB, a contagem recomeça do zero." },
+      { texto: "Última leitura do LM35 guardada numa variável", resposta: 0, explicacao: "Variáveis ficam na RAM (volátil). Faltou energia, a leitura se perde." },
+      { texto: "RAM do notebook onde a API roda", resposta: 0, explicacao: "RAM é sempre volátil, seja no Arduino ou no notebook." },
+      { texto: "Memória Flash", resposta: 1, explicacao: "A Flash é não volátil e regravável, a mesma tecnologia do pendrive." },
+      { texto: "EEPROM", resposta: 1, explicacao: "A EEPROM guarda dados que precisam sobreviver ao desligamento, como uma configuração." },
+      { texto: "ROM", resposta: 1, explicacao: "A ROM é não volátil e guarda o firmware de inicialização." },
+      { texto: "SSD", resposta: 1, explicacao: "O armazenamento (SSD ou HD) é a única camada não volátil da pirâmide." },
+      { texto: "HD", resposta: 1, explicacao: "O HD guarda arquivos e programas de forma permanente." },
+      { texto: "Pendrive", resposta: 1, explicacao: "O pendrive usa memória Flash, que é não volátil." },
+      { texto: "Programa gravado no Arduino", resposta: 1, explicacao: "O programa fica na Flash. Desligou e ligou, ele continua lá." },
+      { texto: "Firmware BIOS / UEFI", resposta: 1, explicacao: "O firmware fica em memória Flash, não volátil, e por isso pode ser atualizado." },
+    ],
+  },
 ];
