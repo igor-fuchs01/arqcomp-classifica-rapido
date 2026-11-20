@@ -479,3 +479,104 @@ kbd {
   border-radius: 6px;
   background: rgba(255, 255, 255, 0.22);
 }
+
+/* ===== Tela de fim ===== */
+.novo-recorde {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--verde);
+}
+
+.resultado {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.resultado-item {
+  background: var(--painel);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  padding: 14px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.resultado-valor {
+  font-size: 1.8rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.resultado-valor.certo { color: var(--verde); }
+.resultado-valor.errado { color: var(--vermelho); }
+
+.resultado-rotulo {
+  color: var(--texto-suave);
+  font-size: 0.85rem;
+}
+
+.botoes-fim {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.botao {
+  flex: 1 1 160px;
+  padding: 14px 18px;
+  border-radius: var(--raio);
+  border: 2px solid var(--borda);
+  background: var(--painel);
+  font-weight: 700;
+}
+
+.botao.principal {
+  background: var(--azul);
+  border-color: var(--azul);
+  color: #fff;
+}
+
+.botao:hover {
+  filter: brightness(1.05);
+}
+
+.sem-erros {
+  color: var(--verde);
+  font-weight: 600;
+}
+
+.revisao {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.revisao li {
+  background: var(--painel);
+  border: 1px solid var(--borda);
+  border-left: 4px solid var(--vermelho);
+  border-radius: 10px;
+  padding: 12px 14px;
+  line-height: 1.45;
+}
+
+.revisao-resposta {
+  color: var(--verde);
+  font-weight: 700;
+}
+
+.revisao-tema {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--texto-suave);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.revisao-explicacao {
+  color: var(--texto-suave);
+  font-size: 0.92rem;
+}
