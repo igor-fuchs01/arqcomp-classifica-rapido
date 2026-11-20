@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-label="Logo Classifica Rápido">
+  <rect width="120" height="120" rx="26" fill="#1e2a44"/>
+  <!-- carta caindo -->
+  <g transform="rotate(-8 60 36)">
+    <rect x="36" y="18" width="48" height="32" rx="6" fill="#f4f6fb"/>
+    <rect x="44" y="28" width="32" height="4" rx="2" fill="#1e2a44" opacity="0.55"/>
+    <rect x="44" y="36" width="20" height="4" rx="2" fill="#1e2a44" opacity="0.3"/>
+  </g>
+  <!-- rastro da queda -->
+  <path d="M60 58 V70" stroke="#f4f6fb" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 7" opacity="0.7"/>
+  <!-- caixas -->
+  <rect x="14" y="78" width="28" height="26" rx="7" fill="#2f7fe0"/>
+  <rect x="46" y="78" width="28" height="26" rx="7" fill="#e0306b"/>
+  <rect x="78" y="78" width="28" height="26" rx="7" fill="#2f8f99"/>
+</svg>

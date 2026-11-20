@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Classifica Rápido</title>
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,31 +13,66 @@
     <!-- TELA 1: INÍCIO -->
     <section id="tela-inicio" class="tela ativa">
       <div class="topo">
-        <p class="selo">Arquitetura Computacional</p>
+        <div class="marca">
+          <img src="assets/logo.svg" alt="" width="44" height="44">
+          <div>
+            <p class="selo">Arquitetura Computacional</p>
+            <h1>Classifica Rápido</h1>
+          </div>
+        </div>
         <button class="botao-som" type="button" aria-label="Ligar ou desligar o som">🔊</button>
       </div>
-      <h1>Classifica Rápido</h1>
-      <p class="subtitulo">As cartas caem. Jogue cada uma na caixa certa antes que cheguem ao fim.</p>
 
-      <div class="regras">
-        <p><kbd>←</kbd> <kbd>↓</kbd> <kbd>→</kbd> ou <kbd>1</kbd> a <kbd>4</kbd> escolhem a caixa · <kbd>P</kbd> pausa · <kbd>Esc</kbd> encerra</p>
-        <p>No celular, toque nas caixas. A cada 5 acertos seguidos seus pontos valem mais e a cada 5 acertos as cartas caem mais rápido.</p>
-      </div>
-
-      <h2>Modo</h2>
-      <div class="modos" role="radiogroup" aria-label="Modo de jogo">
-        <button class="modo" type="button" role="radio" data-modo="normal">
-          <strong>Normal</strong>
-          <span>3 vidas, as cartas caem cada vez mais rápido</span>
-        </button>
-        <button class="modo" type="button" role="radio" data-modo="treino">
+      <div class="dificuldades" role="radiogroup" aria-label="Dificuldade">
+        <button class="dificuldade" type="button" role="radio" data-dificuldade="treino">
+          <span class="dificuldade-icone">📘</span>
           <strong>Treino</strong>
-          <span>sem tempo e sem perder vidas, para estudar</span>
+          <span>sem tempo e sem vidas</span>
+        </button>
+        <button class="dificuldade" type="button" role="radio" data-dificuldade="normal">
+          <span class="dificuldade-icone">⚡</span>
+          <strong>Normal</strong>
+          <span>3 vidas</span>
+        </button>
+        <button class="dificuldade" type="button" role="radio" data-dificuldade="dificil">
+          <span class="dificuldade-icone">🔥</span>
+          <strong>Difícil</strong>
+          <span>2 vidas, 30% mais rápido</span>
         </button>
       </div>
 
-      <h2>Escolha o tema</h2>
-      <div id="lista-temas" class="temas"></div>
+      <!-- O desafio completo é sempre a opção principal -->
+      <button id="hero-desafio" class="hero" type="button">
+        <span class="hero-deco" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+        <span class="hero-selo">★ Modo principal</span>
+        <span class="hero-titulo">Desafio completo</span>
+        <span class="hero-descricao">Todas as pistas das 16 palavras, misturadas. Leia a pista e jogue a carta na palavra certa: as caixas mudam a cada carta.</span>
+        <span class="hero-rodape">
+          <span class="hero-info">
+            <span id="hero-cartas">171 cartas</span>
+            <span id="hero-recorde">Recorde: 0</span>
+            <span id="hero-estrelas" class="estrelas" aria-label="Estrelas"></span>
+          </span>
+          <span class="hero-acao">▶ Jogar</span>
+        </span>
+      </button>
+
+      <div class="cabecalho-niveis">
+        <h2>Níveis</h2>
+        <div class="progresso" title="Estrelas conquistadas nos níveis">
+          <span id="progresso-texto">★ 0/30</span>
+          <span class="progresso-barra"><span id="progresso-preenchido"></span></span>
+        </div>
+      </div>
+      <div id="lista-niveis" class="niveis"></div>
+
+      <details class="regras">
+        <summary>Como jogar</summary>
+        <p>Cada carta é uma pista. Leia e jogue a carta na caixa com a palavra certa antes que ela chegue ao fim.</p>
+        <p><kbd>←</kbd> <kbd>↓</kbd> <kbd>→</kbd> ou <kbd>1</kbd> a <kbd>4</kbd> escolhem a caixa · <kbd>Enter</kbd> pula a explicação · <kbd>P</kbd> pausa · <kbd>Esc</kbd> encerra. No celular, toque nas caixas.</p>
+        <p>A cada 5 acertos seguidos os pontos valem mais (até ×4) e a cada 5 acertos as cartas caem mais rápido.</p>
+        <p>Estrelas de cada nível: ★ 5 acertos numa partida · ★★ 10 acertos · ★★★ acertar todas as pistas do nível. Valem nas dificuldades Normal e Difícil.</p>
+      </details>
     </section>
 
     <!-- TELA 2: JOGO -->
@@ -61,7 +97,7 @@
       </header>
 
       <div class="barra-jogo">
-        <span id="nome-tema" class="nome-tema"></span>
+        <span class="nome-tema"><span id="nome-tema"></span> <span id="selo-dificuldade" class="selo-dificuldade"></span></span>
         <div class="barra-botoes">
           <button class="botao-som botao-pequeno" type="button" aria-label="Ligar ou desligar o som">🔊</button>
           <button id="botao-pausa" class="botao-pequeno" type="button">⏸ Pausar</button>
@@ -70,10 +106,14 @@
       </div>
 
       <div id="area-jogo" class="area-jogo">
-        <div id="carta" class="carta">
-          <span id="carta-tema" class="carta-tema"></span>
-          <span id="carta-texto"></span>
+        <div class="barra-tempo" aria-hidden="true"><span id="barra-tempo"></span></div>
+        <div id="carta" class="carta oculta">
+          <div id="carta-conteudo" class="carta-conteudo">
+            <span id="carta-tema" class="carta-tema"></span>
+            <span id="carta-texto"></span>
+          </div>
         </div>
+        <div id="anuncio" class="anuncio" aria-live="polite"></div>
         <div id="feedback" class="feedback" aria-live="polite"></div>
         <div id="pausa" class="pausa" hidden>
           <p>⏸ Pausado</p>
@@ -86,8 +126,11 @@
 
     <!-- TELA 3: FIM -->
     <section id="tela-fim" class="tela">
+      <div id="confete" class="confete" aria-hidden="true"></div>
       <h1>Fim de jogo</h1>
       <p id="fim-tema" class="subtitulo"></p>
+      <div id="fim-estrelas" class="estrelas grandes" aria-label="Estrelas da partida"></div>
+      <p id="fim-meta" class="fim-meta"></p>
       <p id="fim-recorde" class="novo-recorde" hidden>🏆 Novo recorde!</p>
       <div class="resultado">
         <div class="resultado-item">
@@ -108,8 +151,10 @@
         </div>
       </div>
       <div class="botoes-fim">
-        <button id="botao-repetir" class="botao principal" type="button">Jogar de novo</button>
-        <button id="botao-menu" class="botao" type="button">Trocar tema</button>
+        <button id="botao-repetir" class="botao principal" type="button">↻ Jogar de novo</button>
+        <button id="botao-proximo" class="botao" type="button" hidden>Próximo nível →</button>
+        <button id="botao-desafio" class="botao destaque" type="button" hidden>★ Desafio completo</button>
+        <button id="botao-menu" class="botao" type="button">Menu</button>
       </div>
 
       <h2>Para revisar</h2>
