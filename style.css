@@ -145,3 +145,101 @@ kbd {
   height: 40px;
   font-size: 1.1rem;
 }
+
+/* ===== Modo (normal / treino) ===== */
+.modos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.modo {
+  text-align: left;
+  background: var(--painel);
+  border: 2px solid var(--borda);
+  border-radius: var(--raio);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.modo span {
+  color: var(--texto-suave);
+  font-size: 0.85rem;
+}
+
+.modo[aria-checked="true"] {
+  border-color: var(--azul);
+  box-shadow: inset 0 0 0 1px var(--azul);
+}
+
+/* ===== Lista de temas ===== */
+.temas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
+}
+
+.botao-tema {
+  text-align: left;
+  background: var(--painel);
+  border: 2px solid var(--borda);
+  border-radius: var(--raio);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: var(--sombra);
+  transition: border-color 0.15s, transform 0.15s;
+}
+
+.botao-tema:hover,
+.botao-tema:focus-visible {
+  border-color: var(--azul);
+  transform: translateY(-2px);
+  outline: none;
+}
+
+.botao-tema.desafio {
+  grid-column: 1 / -1;
+  border-color: var(--caixa-2);
+}
+
+.tema-capitulo {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--caixa-2);
+}
+
+.tema-nome {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.tema-descricao {
+  color: var(--texto-suave);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.tema-categorias {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.etiqueta {
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  color: #fff;
+}
+
+.tema-recorde {
+  color: var(--texto-suave);
+  font-size: 0.85rem;
+  margin-top: auto;
+}
